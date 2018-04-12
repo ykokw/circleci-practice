@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -11,7 +12,9 @@
   "dependencies": {
     "koa": "^2.5.0",
     "koa-logger": "^3.2.0",
-    "koa-route": "^3.2.0"
+    "koa-route": "^3.2.0",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.6"
   },
   "devDependencies": {
     "babel-register": "^6.26.0"

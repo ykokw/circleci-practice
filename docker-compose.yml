@@ -1,0 +1,18 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+    - 3010:3010
+    depends_on: 
+      - "mysql"
+    command: ["node", "wait-for-db.js", "sequelize", "db:migrate"]
+    environment: 
+      - "NODE_ENV=development"
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "library"
