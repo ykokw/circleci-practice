@@ -2,9 +2,11 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("book", {
+    return queryInterface.createTable("books", {
       id: { type: Sequelize.INTEGER.UNSIGNED, primaryKey: true, autoIncrement: true },
       title: { type: Sequelize.STRING, allowNull: false },
+      createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW},
+      updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW}
     });
     /*
       Add altering commands here.
@@ -16,7 +18,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("book");
+    return queryInterface.dropTable("books");
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
