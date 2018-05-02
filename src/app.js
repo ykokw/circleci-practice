@@ -8,8 +8,7 @@ const router = new Router();
 const book = new Book();
 
 const sequelize = new Sequelize("library", "root", "", {
-  // host: "mysql",
-  host: "127.0.0.1",
+  host: "mysql",
   dialect: "mysql",
   pool: {
     max: 5
@@ -34,7 +33,6 @@ app.use(async (ctx, next) => {
     await next();
 })
 
-// router.get('/relay', async (ctx, next) => {
 router.post('/register', async (ctx, next) => {
   const b = await book.register(ctx);
   ctx.b = b;
@@ -59,4 +57,4 @@ async function timeout(delay) {
 
 app.use(router.routes());
 
-app.listen(3001);
+app.listen(3010);
