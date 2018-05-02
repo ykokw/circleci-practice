@@ -21,9 +21,6 @@ jobs: # a collection of steps
       - run:
           name: Install Dependencies
           command: yarn install
-      - run:
-          name: Install sequelize-cli
-          command: yarn add sequelize-cli
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
