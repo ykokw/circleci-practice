@@ -43,18 +43,6 @@ async (ctx, next) => {
   ctx.body = ctx.b;
 });
 
-async function relay() {
-  return await timeout(5000);
-}
-
-async function timeout(delay) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("random");
-    }, delay);
-  });
-};
-
 app.use(router.routes());
 
 app.listen(3010);
