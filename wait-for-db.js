@@ -14,7 +14,7 @@ const command = process.argv.reduce((cmd, arg, i) => {
   return cmd;
 }, process.argv[2]);
 
-const count = 0;
+let count = 0;
 const i = setInterval(() => {
   count++;
   if (count > 60) {
