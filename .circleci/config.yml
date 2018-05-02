@@ -1,0 +1,37 @@
+version: 2 # use CircleCI 2.0
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+    working_directory: ~/circleci-practice # directory where steps will run
+    docker: # run the steps with Docker
+      - image: circleci/node:8.11.1 # ...with this image as the primary container; this is where all `steps` will run
+      - image: circleci/mysql:5.6 # and this image as the secondary service container
+    steps: # a collection of executable commands 
+      - checkout # special step to check out source code to working directory
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-{{ .Branch }}
+            - yarn-packages-master
+            - yarn-packages-
+      - run:
+          name: Install Dependencies
+          command: yarn install
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules/
+      - run:
+          name: Wait for db setup and exec migration
+          command: node wait-for-db.js sequelize db:migrate
+      - run:
+          name: Setting app process and wait
+          command: node ./src/app.js
+          background: true
+      - run:
+          name: Sleep 15sec
+          command: sleep 15
+      - run:
+          name: yarn test
+          command: yarn test
