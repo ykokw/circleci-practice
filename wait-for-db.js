@@ -28,10 +28,12 @@ const i = setInterval(() => {
       return exec(command, (err, stdout, stderr) => {
         if (err) {
           console.error(err);
+          sequelize.close();
           return;
         }
         console.log(stdout);
         console.log(stderr);
+        sequelize.close();
         return;
       });
     })
