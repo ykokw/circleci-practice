@@ -2,8 +2,7 @@ const { exec } = require("child_process");
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize("library", "root", "", {
-  host: "mysql",
-  // host: "127.0.0.1",
+  host: process.env.NODE_ENV === "development" ? "mysql" : "127.0.0.1",
   dialect: "mysql",
   pool: {
     max: 5
