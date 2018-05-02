@@ -21,6 +21,9 @@ jobs: # a collection of steps
       - run:
           name: Install Dependencies
           command: yarn install
+      - run:
+          name: Install sequelize-cli
+          command: yarn add sequelize-cli
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
@@ -28,7 +31,7 @@ jobs: # a collection of steps
             - node_modules/
       - run:
           name: Wait for db setup and exec migration
-          command: node wait-for-db.js sequelize db:migrate
+          command: node wait-for-db.js ./node_modules/.bin/sequelize db:migrate
       - run:
           name: Setting app process and wait
           command: node ./src/app.js
