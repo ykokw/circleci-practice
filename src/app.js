@@ -8,7 +8,7 @@ const router = new Router();
 const book = new Book();
 
 const sequelize = new Sequelize("library", "root", "", {
-  host: "mysql",
+  host: process.env.NODE_ENV === "development" ? "mysql" : "127.0.0.1",
   dialect: "mysql",
   pool: {
     max: 5
